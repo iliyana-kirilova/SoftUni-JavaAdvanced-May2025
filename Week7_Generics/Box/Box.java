@@ -1,0 +1,52 @@
+package Week7_Generics.Box;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Box<T extends Comparable<T>> {
+
+    private List<T> values;
+
+    public Box() {
+        this.values = new ArrayList<>();
+    }
+
+    public void add(T value){
+        this.values.add(value);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (T value : this.values) {
+            String formattedValue = String.format("%s: %s", value.getClass().getName(), value);
+            sb.append(formattedValue).append(System.lineSeparator());
+
+        }
+        return sb.toString();
+    }
+
+
+   public void swap(int index1, int index2) {
+
+        //Collections.swap(this.values, index1, index2);
+
+        T firstValue = values.get(index1);
+        T secondValue = values.get(index2);
+
+        this.values.set(index1, secondValue);
+        this.values.set(index2, firstValue);
+   }
+
+    public int countGreaterValues(T valueToCompare) {
+        int count = 0;
+        for (T value : this.values) {
+            // сравняваме дали стойността от списъка е по-голяма от стойността, с която сравняваме
+            int comparingResult = value.compareTo(valueToCompare);
+            if (comparingResult>0){
+                count++;
+            }
+        }
+        return count;
+    }
+}
